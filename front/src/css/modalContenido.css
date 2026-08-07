@@ -1,0 +1,27 @@
+.modal-contenido{
+    z-index: 999;
+    display: none;
+    position: fixed;
+    left: 0;
+    margin-top: 13px;
+    width: 100%;
+    background-color:#000000bf;
+    max-height: 400px; 
+    overflow-y: auto; 
+    overflow-x: hidden; 
+}
+
+.modal-contenido.isopen{
+    display: flex;
+    flex-direction: column;
+}
+.modal-sub-contenido{
+    position: relative;
+    background-color: white;
+}
+
+.boton-close{
+    position: absolute;
+    top:1rem;
+    right: 1rem;
+}
