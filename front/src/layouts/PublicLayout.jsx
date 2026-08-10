@@ -2,6 +2,7 @@ import React from 'react'
 import { Outlet } from 'react-router-dom'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
+import BotonWhatsApp from '../components/BotonWhatsApp'
 
 const PublicLayout = () => {
   return (
@@ -9,6 +10,7 @@ const PublicLayout = () => {
       <Header />
       <Outlet />
       <Footer/>
+      <BotonWhatsApp />
     </div>
   )
 }

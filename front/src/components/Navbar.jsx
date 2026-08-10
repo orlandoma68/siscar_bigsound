@@ -3,6 +3,7 @@ import { Link, NavLink, useNavigate } from 'react-router-dom'
 import CarritoWidget from './CarritoWidget'
 import Modalinicio from './Modalinicio'
 import { CarritoContext } from '../context/CarritoContext'
+import { useAuth } from '../context/AuthContext'
 import carritoimg from "../imagen/siscarblue.png"
 import { Home, Landmark, Search, Menu, X } from 'lucide-react'
 
@@ -15,6 +16,7 @@ const navegacion = [
 const Navbar = () => {
 
   const { cantidadProductosCarrito } = useContext(CarritoContext)
+  const { user } = useAuth()
   const navigate = useNavigate()
   const [searchTermino, setSearchTermino] = useState("")
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
@@ -70,9 +72,15 @@ const Navbar = () => {
           </form>
 
           <div className='d-none d-md-flex align-items-center' style={{ gap: '0.5rem' }}>
-            <Link to="/auth/login" className='btn btn-outline-primary btn-sm'>
-              Administracion
-            </Link>
+            {user ? (
+              <Link to="/admin" className='btn btn-primary btn-sm'>
+                Mi Cuenta
+              </Link>
+            ) : (
+              <Link to="/auth/login" className='btn btn-outline-primary btn-sm'>
+                Iniciar Sesion
+              </Link>
+            )}
           </div>
 
           <div className='d-none d-md-block'>
@@ -133,9 +141,15 @@ const Navbar = () => {
             </form>
 
             <div className='d-flex flex-column gap-2 px-3'>
-              <Link to="/auth/login" className='btn btn-outline-primary btn-sm' onClick={() => setMobileMenuOpen(false)}>
-                Administracion
-              </Link>
+              {user ? (
+                <Link to="/admin" className='btn btn-primary btn-sm' onClick={() => setMobileMenuOpen(false)}>
+                  Mi Cuenta
+                </Link>
+              ) : (
+                <Link to="/auth/login" className='btn btn-outline-primary btn-sm' onClick={() => setMobileMenuOpen(false)}>
+                  Iniciar Sesion
+                </Link>
+              )}
               <CarritoWidget cantidadProductosCarrito={cantidadProductosCarrito} />
             </div>
           </div>

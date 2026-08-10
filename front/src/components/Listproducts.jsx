@@ -19,10 +19,12 @@ const Listproducts = () => {
 
     useEffect(()=>{        
       obtenerProductos()
-    },[])
+    },[categoria])
 
     const obtenerProductos = async ()=>{
         try {
+            setIsLoading(true)
+            setError(null)
             const datos = await pedirProductos()
             pedirProductosCategoria(datos, categoria)
             .then((res)=>{

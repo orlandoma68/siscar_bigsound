@@ -71,7 +71,7 @@ const AuthProvider = ({ children }) => {
         const email = resultadoFirebase.user.email
         const nombre = resultadoFirebase.user.displayName || email.split('@')[0]
 
-        const res = await fetch(`${URL_SERVER}/sincronizar-google`, {
+        const res = await fetch(`${URL_SERVER}/usuarios/sincronizar-google`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ email, nombre })
@@ -94,7 +94,7 @@ const AuthProvider = ({ children }) => {
 
     const verificarRol = async (email) => {
         try {
-            const res = await fetch(`${URL_SERVER}/verificar-rol?email=${encodeURIComponent(email)}`)
+            const res = await fetch(`${URL_SERVER}/usuarios/verificar-rol?email=${encodeURIComponent(email)}`)
             const data = await res.json()
             if (data.ok && data.existe) {
                 setRol(data.rol)

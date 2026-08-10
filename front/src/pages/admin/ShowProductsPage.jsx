@@ -4,6 +4,7 @@ import { toast } from 'react-hot-toast'
 import { pedirProductos } from '../../js/pedirProductos'
 import { PlusCircle, RotateCcw, Save, Search, Trash2, Edit3, X } from 'lucide-react'
 import { useForm } from "react-hook-form";
+import ModalConfirmar from '../../components/ModalConfirmar'
 
 const API_URL = import.meta.env.VITE_URL_SERVER;
 
@@ -16,6 +17,7 @@ const ShowProductsPage = () => {
     const [titulo, setTitulo] = useState('')
     const [productos, setProductos] = useState([])
     const [selectProducto, setSelectProducto] = useState(null)
+    const [productoAEliminar, setProductoAEliminar] = useState(null)
 
     const buscarDatos = (datos) => {
         if (!busqueda) return datos
@@ -64,6 +66,7 @@ const ShowProductsPage = () => {
         try {
             const response = await fetch(`${API_URL}/productos/registrar`, {
                 method: "POST",
+                headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` },
                 body: formData,
             });
             const result = await response.json();
@@ -82,6 +85,7 @@ const ShowProductsPage = () => {
         try {
             const respuesta = await fetch(`${API_URL}/productos/actualizar/${id}`, {
                 method: 'PUT',
+                headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` },
                 body: formData,
             })
             if (!respuesta.ok) {
@@ -99,6 +103,7 @@ const ShowProductsPage = () => {
         try {
             const res = await fetch(`${API_URL}/productos/delete/${id}`, {
                 method: 'DELETE',
+                headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` },
             })
             if (!res.ok) throw new Error('Error en la solicitud')                
             toast.success("Producto eliminado correctamente", notific);
@@ -216,11 +221,9 @@ const ShowProductsPage = () => {
                                                 </button>
                                                 <button
                                                     className='btn btn-sm btn-outline-danger d-flex align-items-center gap-1'
-                                                    onClick={() => {
-                                                        if (window.confirm(`Eliminar "${prod.nombre}"?`)) {
-                                                            eliminarProducto(prod.id)
-                                                        }
-                                                    }}
+                                                    onClick={() => setProductoAEliminar(prod)}
+                                                    data-bs-toggle='modal'
+                                                    data-bs-target='#modalEliminarProducto'
                                                     style={{ fontSize: '0.8125rem', padding: '0.25rem 0.625rem' }}
                                                 >
                                                     <Trash2 size={14} />
@@ -337,6 +340,16 @@ const ShowProductsPage = () => {
                     </div>
                 </div>
             </div>
+
+            <ModalConfirmar
+                id='modalEliminarProducto'
+                titulo='Eliminar producto'
+                mensaje={`¿Seguro que deseas eliminar "${productoAEliminar?.nombre || ''}"? Esta accion no se puede deshacer.`}
+                onConfirmar={() => {
+                    if (productoAEliminar) eliminarProducto(productoAEliminar.id)
+                    setProductoAEliminar(null)
+                }}
+            />
         </div>
     )
 }

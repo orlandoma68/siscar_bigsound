@@ -27,6 +27,8 @@ import Itemdetailcontain from './components/Itemdetailcontain'
 import Carrito from './components/Carrito'
 import ContactPage from './pages/Public/ContactPage'
 import ShowProductsPage from './pages/admin/ShowProductsPage'
+import PedidosPage from './pages/admin/PedidosPage'
+import ContactosPage from './pages/admin/ContactosPage'
 import { ProductoContextProvider } from './context/ProductoContext'
 
 const App = () => {
@@ -56,6 +58,8 @@ const App = () => {
                 <Route path='admin' element={<AdminLayout />}>
                     <Route index element={<DasboardPage />}/>
                     <Route path='profile' element={<ProfilePage />}/>
+                    <Route path='pedidos' element={<PedidosPage />}/>
+                    <Route path='contactos' element={<ContactosPage />} />
                     <Route path='listar' element={<ShowProductsPage />} />
                 </Route>
 

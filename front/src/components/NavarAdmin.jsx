@@ -1,17 +1,23 @@
-import { LayoutDashboard, Package, User, LogOut } from 'lucide-react'
+import { LayoutDashboard, Package, User, LogOut, ShoppingBag, MessageSquare } from 'lucide-react'
 import React from 'react'
 import { NavLink } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
-
-const navegacion = [
-    { name: "Dashboard", href: "/admin", icon: LayoutDashboard },
-    { name: "Productos", href: "/admin/listar", icon: Package },
-    { name: "Perfil", href: "/admin/profile", icon: User }
-]
+import useContactosNoLeidos from '../js/useContactosNoLeidos'
 
 const NavarAdmin = () => {
 
-    const { logout } = useAuth()
+    const { logout, esAdmin } = useAuth()
+    const { cantidad } = useContactosNoLeidos(esAdmin)
+
+    const navegacion = [
+        { name: "Dashboard", href: "/admin", icon: LayoutDashboard },
+        { name: "Productos", href: "/admin/listar", icon: Package, soloAdmin: true },
+        { name: "Mis Pedidos", href: "/admin/pedidos", icon: ShoppingBag, soloAdmin: false },
+        { name: "Contactos", href: "/admin/contactos", icon: MessageSquare, soloAdmin: true, badge: cantidad },
+        { name: "Perfil", href: "/admin/profile", icon: User }
+    ]
+
+    const items = navegacion.filter((item) => !item.soloAdmin || esAdmin)
 
     return (
         <nav className='admin-nav'>
@@ -19,10 +25,13 @@ const NavarAdmin = () => {
                 <NavLink to="/admin" className='fw-bold me-3' style={{ color: 'white', fontSize: '1rem' }}>
                     BIGSOUND
                 </NavLink>
-                {navegacion.map((item) => (
+                {items.map((item) => (
                     <NavLink key={item.name} to={item.href} end={item.href === "/admin"} className={({ isActive }) => isActive ? "active" : ""}>
                         <item.icon size={16} />
                         {item.name}
+                        {item.badge > 0 && (
+                            <span className='admin-nav-badge'>{item.badge}</span>
+                        )}
                     </NavLink>
                 ))}
             </div>

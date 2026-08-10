@@ -18,7 +18,8 @@ export const pedirProductosCategoria = (datos, categoria) => {
             resolve(datos);
             return;
         }
-        const itemCategoria = datos.filter((item) => item.categoria === categoria);
+        const normalizada = categoria.trim().toLowerCase();
+        const itemCategoria = datos.filter((item) => item.categoria.trim().toLowerCase() === normalizada);
         if (itemCategoria.length > 0) {
             resolve(itemCategoria);
         } else {
@@ -29,8 +30,13 @@ export const pedirProductosCategoria = (datos, categoria) => {
 
 export const pedirProductosCategoriaUnicos = (datos) => {
     return new Promise((resolve) => {
-        const categoriasUnicos = datos.filter((producto, index, self) =>
-            index === self.findIndex(p => p.categoria === producto.categoria));
+        const vistos = new Set();
+        const categoriasUnicos = datos.filter((producto) => {
+            const normalizada = producto.categoria.trim().toLowerCase();
+            if (!normalizada || vistos.has(normalizada)) return false;
+            vistos.add(normalizada);
+            return true;
+        });
         resolve(categoriasUnicos);
     })
 }

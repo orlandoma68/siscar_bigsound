@@ -1,16 +1,23 @@
 import React, { useEffect, useState } from 'react'
 import { useAuth } from '../../context/AuthContext'
-import { Package, Layers, DollarSign, Box, TrendingUp, ShoppingCart } from 'lucide-react'
+import { Link } from 'react-router-dom'
+import useContactosNoLeidos from '../../js/useContactosNoLeidos'
+import { Package, Layers, DollarSign, Box, ShoppingBag, User, MessageSquare } from 'lucide-react'
 
 const API_URL = import.meta.env.VITE_URL_SERVER;
 
 const DasboardPage = () => {
 
-  const { user } = useAuth()
+  const { user, esAdmin } = useAuth()
   const [stats, setStats] = useState(null)
   const [loading, setLoading] = useState(true)
+  const { cantidad: contactosNoLeidos } = useContactosNoLeidos(esAdmin)
 
   useEffect(() => {
+    if (!esAdmin) {
+      setLoading(false)
+      return
+    }
     const fetchStats = async () => {
       try {
         const res = await fetch(`${API_URL}/productos/stats`)
@@ -25,7 +32,68 @@ const DasboardPage = () => {
       }
     }
     fetchStats()
-  }, [])
+  }, [esAdmin])
+
+  if (!esAdmin) {
+    return (
+      <div className='container py-4' style={{ maxWidth: '800px' }}>
+        <div className='d-flex justify-content-between align-items-center mb-4'>
+          <div>
+            <h4 className='fw-bold mb-1'>
+              Bienvenido, {user?.nombre || user?.email || 'Usuario'}
+            </h4>
+            <p className='text-muted mb-0' style={{ fontSize: '0.875rem' }}>
+              Este es tu panel personal
+            </p>
+          </div>
+        </div>
+
+        <div className='row g-3'>
+          <div className='col-12'>
+            <div className='card p-4'>
+              <h5 className='fw-bold mb-3'>Mi Perfil</h5>
+              <div className='d-flex align-items-center gap-3 mb-3'>
+                <div style={{
+                  width: '48px',
+                  height: '48px',
+                  borderRadius: '50%',
+                  background: 'var(--primary-light)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center'
+                }}>
+                  <User size={24} style={{ color: 'var(--primary)' }} />
+                </div>
+                <div>
+                  <div className='fw-medium'>{user?.nombre || 'Sin nombre'}</div>
+                  <div className='text-muted' style={{ fontSize: '0.8125rem' }}>{user?.email}</div>
+                </div>
+              </div>
+              <Link to="/admin/profile" className='btn btn-outline-primary btn-sm'>
+                Ver mi perfil
+              </Link>
+            </div>
+          </div>
+
+          <div className='col-12'>
+            <div className='card p-4'>
+              <div className='d-flex align-items-center gap-2 mb-2'>
+                <ShoppingBag size={18} style={{ color: 'var(--primary)' }} />
+                <h5 className='fw-bold mb-0'>Mis Compras</h5>
+              </div>
+              <p className='text-muted mb-3' style={{ fontSize: '0.875rem' }}>
+                Consulta todos los pedidos que has realizado en la tienda.
+              </p>
+              <Link to="/admin/pedidos" className='btn btn-primary btn-sm d-flex align-items-center gap-2' style={{ width: 'fit-content' }}>
+                <ShoppingBag size={14} />
+                Ver mis pedidos
+              </Link>
+            </div>
+          </div>
+        </div>
+      </div>
+    )
+  }
 
   return (
     <div className='container-fluid py-4 px-4' style={{ maxWidth: '1200px' }}>
@@ -47,6 +115,20 @@ const DasboardPage = () => {
         </div>
       ) : (
         <>
+          {contactosNoLeidos > 0 && (
+            <div className='alert alert-warning d-flex align-items-center justify-content-between flex-wrap gap-2 mb-4' role='alert'>
+              <div className='d-flex align-items-center gap-2'>
+                <MessageSquare size={18} />
+                <span style={{ fontSize: '0.875rem' }}>
+                  Tienes <strong>{contactosNoLeidos}</strong> mensaje{contactosNoLeidos !== 1 ? 's' : ''} de contacto sin leer.
+                </span>
+              </div>
+              <Link to="/admin/contactos" className='btn btn-sm btn-outline-dark'>
+                Ver mensajes
+              </Link>
+            </div>
+          )}
+
           <div className='row g-3 mb-4'>
             <div className='col-12 col-sm-6 col-lg-3'>
               <div className='dashboard-stat-card'>
