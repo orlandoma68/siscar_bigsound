@@ -4,7 +4,7 @@ import CarritoWidget from './CarritoWidget'
 import Modalinicio from './Modalinicio'
 import { CarritoContext } from '../context/CarritoContext'
 import { useAuth } from '../context/AuthContext'
-import carritoimg from "../imagen/siscarblue.png"
+import carritoimg from "../imagen/bigsound.png"
 import { Home, Landmark, Search, Menu, X } from 'lucide-react'
 
 const navegacion = [

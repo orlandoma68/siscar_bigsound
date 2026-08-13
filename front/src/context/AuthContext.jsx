@@ -109,6 +109,28 @@ const AuthProvider = ({ children }) => {
         }
     }
 
+    const olvidarPassword = async (email) => {
+        const res = await fetch(`${URL_SERVER}/usuarios/olvidar-password`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email })
+        })
+        const data = await res.json()
+        if (!data.ok) throw new Error(data.message || 'Error al enviar el enlace')
+        return data
+    }
+
+    const restablecerPassword = async (token, password) => {
+        const res = await fetch(`${URL_SERVER}/usuarios/restablecer-password`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ token, password })
+        })
+        const data = await res.json()
+        if (!data.ok) throw new Error(data.message || 'Error al restablecer la contrasena')
+        return data
+    }
+
     const esAdmin = rol === 'ADMIN'
 
     return (
@@ -123,7 +145,9 @@ const AuthProvider = ({ children }) => {
             signIn,
             singInWithGoogle,
             logout,
-            verificarRol
+            verificarRol,
+            olvidarPassword,
+            restablecerPassword
         }}>
             {children}
         </AuthContext.Provider>

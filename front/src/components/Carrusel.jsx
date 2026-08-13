@@ -1,6 +1,7 @@
 import React from 'react'
 import banner1 from "../imagen/banner1.png"
 import banner2 from "../imagen/banner2.png"
+import banner4 from "../imagen/banner4.png"
 import { Link } from 'react-router-dom'
 
 const Carrusel = () => {
@@ -21,7 +22,7 @@ const Carrusel = () => {
           </div>
           <div className="carousel-item" data-bs-interval="4000">
             <Link to="/auth/register">
-              <img src={banner1} alt="banner-3" className="d-block w-100" style={{ height: '400px', objectFit: 'cover' }} />
+              <img src={banner4} alt="banner-3" className="d-block w-100" style={{ height: '400px', objectFit: 'cover' }} />
             </Link>
           </div>
         </div>

@@ -12,7 +12,7 @@ const AboutPage = () => {
           </div>
         </div>
         <div className='col-12 col-md-6'>
-          <h3 className='fw-bold mb-3'>Sobre Siscar</h3>
+          <h3 className='fw-bold mb-3'>Sobre BIGSOUND</h3>
           <p style={{ fontSize: '0.9375rem', lineHeight: '1.8', color: 'var(--text-muted)' }}>
             Somos un sitio dedicado a ofrecerte los mejores productos de automocion con envios a todo el interior del pais.
             Trabajamos con las mejores marcas para garantizar la calidad y satisfaccion de nuestros clientes.

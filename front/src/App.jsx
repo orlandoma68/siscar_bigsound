@@ -29,6 +29,7 @@ import ContactPage from './pages/Public/ContactPage'
 import ShowProductsPage from './pages/admin/ShowProductsPage'
 import PedidosPage from './pages/admin/PedidosPage'
 import ContactosPage from './pages/admin/ContactosPage'
+import UsuariosPage from './pages/admin/UsuariosPage'
 import { ProductoContextProvider } from './context/ProductoContext'
 
 const App = () => {
@@ -60,6 +61,7 @@ const App = () => {
                     <Route path='profile' element={<ProfilePage />}/>
                     <Route path='pedidos' element={<PedidosPage />}/>
                     <Route path='contactos' element={<ContactosPage />} />
+                    <Route path='usuarios' element={<UsuariosPage />} />
                     <Route path='listar' element={<ShowProductsPage />} />
                 </Route>
 

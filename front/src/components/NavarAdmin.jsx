@@ -1,4 +1,4 @@
-import { LayoutDashboard, Package, User, LogOut, ShoppingBag, MessageSquare } from 'lucide-react'
+import { LayoutDashboard, Package, User, LogOut, ShoppingBag, MessageSquare, Users } from 'lucide-react'
 import React from 'react'
 import { NavLink } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
@@ -14,6 +14,7 @@ const NavarAdmin = () => {
         { name: "Productos", href: "/admin/listar", icon: Package, soloAdmin: true },
         { name: "Mis Pedidos", href: "/admin/pedidos", icon: ShoppingBag, soloAdmin: false },
         { name: "Contactos", href: "/admin/contactos", icon: MessageSquare, soloAdmin: true, badge: cantidad },
+        { name: "Usuarios", href: "/admin/usuarios", icon: Users, soloAdmin: true },
         { name: "Perfil", href: "/admin/profile", icon: User }
     ]
 

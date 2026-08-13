@@ -114,7 +114,13 @@ const LoginPage = () => {
               </button>
             </form>
 
-            <div className='text-center mt-4' style={{ fontSize: '0.875rem' }}>
+            <div className='text-center mt-3' style={{ fontSize: '0.875rem' }}>
+              <Link to="/auth/lostpass" className='text-decoration-none' style={{ color: 'var(--text-muted)' }}>
+                Olvidaste tu contrasena?
+              </Link>
+            </div>
+
+            <div className='text-center mt-3' style={{ fontSize: '0.875rem' }}>
               <span className='text-muted'>No tienes cuenta? </span>
               <Link to="/auth/register" className='text-decoration-none' style={{ color: 'var(--primary)', fontWeight: 500 }}>
                 Registrate

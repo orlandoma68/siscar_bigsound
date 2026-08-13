@@ -1,0 +1,19 @@
+- generic [ref=e50]:
+  - generic [ref=e51]:
+    - heading "Restablecer Contrasena" [level=4] [ref=e56]
+    - paragraph [ref=e57]: Ingresa tu email y te enviaremos un enlace para crear una nueva contrasena.
+  - generic [ref=e70]: Si el email existe, recibiras un enlace para restablecer tu contrasena.
+  - generic [ref=e71]:
+    - strong [ref=e72]: "Modo dev (sin SMTP):"
+    - text: enlace de restablecimiento generado.
+    - link "http://localhost:5173/auth/lostpass?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTYsInRpcG8iOiJyZXNldCIsImlhdCI6MTc4NjQ4MTAzMCwiZXhwIjoxNzg2NDgyODMwfQ.Rfe_WStFmSfgwqzglYgAI7GOkTeskYt8whypZ_c3S8s" [ref=e73] [cursor=pointer]:
+      - /url: http://localhost:5173/auth/lostpass?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTYsInRpcG8iOiJyZXNldCIsImlhdCI6MTc4NjQ4MTAzMCwiZXhwIjoxNzg2NDgyODMwfQ.Rfe_WStFmSfgwqzglYgAI7GOkTeskYt8whypZ_c3S8s
+  - generic [ref=e58]:
+    - generic [ref=e59]:
+      - generic [ref=e60]: Email
+      - textbox "tu@email.com" [ref=e66]: test-reset@siscar.com
+    - button "Enviar enlace" [ref=e67] [cursor=pointer]
+  - generic [ref=e68]:
+    - text: Recuerdas tu contrasena?
+    - link "Iniciar sesion" [ref=e69] [cursor=pointer]:
+      - /url: /auth/login

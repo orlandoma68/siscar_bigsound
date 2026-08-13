@@ -23,9 +23,9 @@ const SearchPage = () => {
 //      const respuesta = await fetch(`https://68d41b8f214be68f8c686c74.mockapi.io/api/v1/productos?nombre=${encodeURIComponent(termino)}`)
 //      const res = await axios.get(`http://localhost:5000/api/productos/buscar?nombre=${valor}`);
         const respuesta = await fetch(`${API_URL}/productos/buscar?nombre=${encodeURIComponent(termino)}`)
-        if(!respuesta.ok) throw new error ("Error en la busqueda")
+        if(!respuesta.ok) throw new Error("Error en la busqueda")
         const datos = await respuesta.json()
-        setProductos(datos)          
+        setProductos(datos.data)          
       } catch (error) {
         setError(error)
         setProductos([])
@@ -41,7 +41,7 @@ const SearchPage = () => {
   //if(error) return <p>{error}</p>
 
   return (
-    <div className='my-5 row gy-5 row-cols-1 row-cols-sm-2 row-cols-md-3 d-flex justify-content-center align-items-center'>
+    <div className='my-5 row gy-4 row-cols-1 row-cols-sm-2 row-cols-md-3 d-flex justify-content-center'>
         { productos.length >0 ?
             productos.map((producto) =>{
                 return(

@@ -9,7 +9,7 @@ routerProductos.get("/productos", controllerProducto.obtenerProductos)
 
 routerProductos.get("/producto/:id", controllerProducto.obtenerProductoId)
 
-routerProductos.get("/producto/buscar", controllerProducto.obtenerProductosNombre)
+routerProductos.get("/buscar", controllerProducto.obtenerProductosNombre)
 
 routerProductos.get("/stats", controllerProducto.obtenerEstadisticas)
 

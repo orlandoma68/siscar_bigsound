@@ -109,6 +109,31 @@ const iniciarTablasPedidos = async () => {
     }
 }
 
+const crearTablaAuditoria = async () => {
+    await pool.query(`
+        CREATE TABLE IF NOT EXISTS tblauditoria_roles (
+            id INT NOT NULL AUTO_INCREMENT,
+            usuario_id INT NOT NULL,
+            email VARCHAR(255) NOT NULL,
+            usuario_modificado_id INT NOT NULL,
+            rol_anterior VARCHAR(50) NOT NULL,
+            rol_nuevo VARCHAR(50) NOT NULL,
+            accion ENUM('promover','revocar') NOT NULL,
+            fecha DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+            PRIMARY KEY (id)
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci
+    `)
+}
+
+const iniciarTablaAuditoria = async () => {
+    try {
+        await crearTablaAuditoria()
+        console.log("Tabla de auditoria de roles verificada en la BD")
+    } catch (error) {
+        console.error("Error al crear tabla de auditoria de roles:", error.message)
+    }
+}
+
 const crearTablaContactos = async () => {
     await pool.query(`
         CREATE TABLE IF NOT EXISTS tblcontactos (
@@ -151,7 +176,7 @@ const iniciarTablasContactos = async () => {
     }
 }
 
-iniciarRoles().then(iniciarTablasPedidos).then(iniciarTablasContactos).then(() => {
+iniciarRoles().then(iniciarTablasPedidos).then(iniciarTablasContactos).then(iniciarTablaAuditoria).then(() => {
     app.listen(port, () => {
         console.log(`Server iniciado en el puerto ${port}`)
     })

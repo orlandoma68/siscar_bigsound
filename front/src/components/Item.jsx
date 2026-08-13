@@ -12,8 +12,8 @@ const Item = ({ producto }) => {
   const { agregarProductosCarrito } = React.useContext(CarritoContext)
 
   return (
-    <div className='col d-flex justify-content-center mb-4'>
-      <div className="card h-100" style={{ width: '100%', maxWidth: '320px' }}>
+    <div className='col d-flex justify-content-center'>
+      <div className="card h-100" style={{ width: '100%' }}>
         <div style={{ position: 'relative', overflow: 'hidden' }}>
           <img
             src={`${API_URL}/uploads/${producto.imagen}`}

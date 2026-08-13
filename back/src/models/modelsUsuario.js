@@ -20,9 +20,41 @@ const actualizarUsuario = async ({ id, email }) => {
     return result
 }
 
+const actualizarPassword = async ({ id, password }) => {
+    const sql = 'UPDATE tblusuarios SET password = ? WHERE id = ?';
+    const [result] = await pool.query(sql, [password, id]);
+    return result
+}
+
 const eliminarUsuario = async (id) => {
     const sql = 'DELETE FROM tblusuarios WHERE id = ?';
     const [result] = await pool.query(sql, [id]);
+    return result
+}
+
+const actualizarRol = async ({ id, rol_id }) => {
+    const sql = 'UPDATE tblusuarios SET rol_id = ? WHERE id = ?';
+    const [result] = await pool.query(sql, [rol_id, id]);
+    return result
+}
+
+const obtenerRol = async (rol_id) => {
+    const sql = 'SELECT id, roles FROM tblroles WHERE id = ?';
+    const [result] = await pool.query(sql, [rol_id]);
+    return result[0]
+}
+
+const contarAdmins = async () => {
+    const sql = 'SELECT COUNT(*) AS total FROM tblusuarios WHERE rol_id = 1';
+    const [result] = await pool.query(sql);
+    return result[0].total
+}
+
+const registrarAuditoriaRol = async ({ usuario_id, email, usuario_modificado_id, rol_anterior, rol_nuevo, accion }) => {
+    const sql = `INSERT INTO tblauditoria_roles
+                 (usuario_id, email, usuario_modificado_id, rol_anterior, rol_nuevo, accion)
+                 VALUES (?, ?, ?, ?, ?, ?)`;
+    const [result] = await pool.query(sql, [usuario_id, email, usuario_modificado_id, rol_anterior, rol_nuevo, accion]);
     return result
 }
 
@@ -47,8 +79,13 @@ const obtenerUsuarioId = async (id) => {
 module.exports = {
     crearUsuario,
     actualizarUsuario,
+    actualizarPassword,
+    actualizarRol,
     eliminarUsuario,
     obtenerUsuarioEmail,
     obtenerUsuarioId,
-    obtenerUsuarios
+    obtenerUsuarios,
+    obtenerRol,
+    contarAdmins,
+    registrarAuditoriaRol
 }

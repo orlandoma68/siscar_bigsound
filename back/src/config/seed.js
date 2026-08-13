@@ -1,7 +1,7 @@
 const bcrypt = require('bcryptjs')
 const pool = require('./configDb')
 
-const usuarios = [
+/*const usuarios = [
     {
         nombre: 'Administrador',
         email: 'admin@siscar.com',
@@ -15,7 +15,7 @@ const usuarios = [
         rol_id: 2
     }
 ]
-
+*/
 const ensureRoles = async () => {
     await pool.query(
         "INSERT IGNORE INTO tblroles (id, roles) VALUES (1, 'ADMIN'), (2, 'CLIENT')"
