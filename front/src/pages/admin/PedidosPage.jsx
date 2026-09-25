@@ -195,7 +195,7 @@ const PedidosPage = () => {
 
                             <div className='d-flex flex-column gap-1 mb-3'>
                                 {pedido.productos?.map((item) => (
-                                    <div key={item.id} className='d-flex justify-content-between align-items-center py-2' style={{ borderBottom: '1px solid var(--border)' }}>
+                                    <div key={item.id} className='d-flex justify-content-between align-items-center py-0' style={{ borderBottom: '1px solid var(--border)' }}>
                                         <div className='d-flex align-items-center gap-2'>
                                             <Package size={16} style={{ color: 'var(--text-muted)', flexShrink: 0 }} />
                                             <span style={{ fontSize: '0.875rem' }}>

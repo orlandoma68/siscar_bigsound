@@ -1,5 +1,6 @@
 import React, { useContext } from 'react'
 import ItemCount from './ItemCount'
+import ZoomImagen from './ZoomImagen'
 import { CarritoContext } from '../context/CarritoContext'
 import { useAuth } from '../context/AuthContext'
 import { Link } from 'react-router-dom'
@@ -23,12 +24,7 @@ const Itemdetail = ({ item }) => {
           <div className='row g-4 justify-content-center'>
             <div className='col-12 col-md-5'>
               <div className='card overflow-hidden'>
-                <img
-                  src={`${API_URL}/uploads/${item.imagen}`}
-                  alt={item.nombre}
-                  className="img-fluid w-100"
-                  style={{ height: '400px', objectFit: 'cover' }}
-                />
+                <ZoomImagen src={`${API_URL}/uploads/${item.imagen}`} alt={item.nombre} />
               </div>
             </div>
             <div className='col-12 col-md-6'>
