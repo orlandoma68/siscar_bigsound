@@ -7,6 +7,7 @@ const pool = mysql.createPool({
     user: process.env.DB_USER,
     password: process.env.DB_PASSWORD,
     database: process.env.DB_NAME,
+    ssl: {rejectUnauthorized: false},
     waitForConnections: true,
     connectionLimit: 10,
     queueLimit: 0    
@@ -17,21 +18,3 @@ pool.on('error', (err) => {
 });
 
 module.exports = pool;
-
-/*
-{
-"nombre": "Coca Cola",
-"descripcion": "Bebida gaseosa",
-"categoria": "Bebidas",
-"imagen": "imagen.png",
-"cantidad": 100,
-"precio": 1.5,
-"codigo" : "123456789"}
-
-*/
-
-/*
-{"email": "orlando@gmail.com",
-"password": "admin123"
-}
-*/
