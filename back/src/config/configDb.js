@@ -101,5 +101,7 @@ CREATE TABLE IF NOT EXISTS tblcontactos (
   PRIMARY KEY (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 `
+// Se ejecuta automáticamente al importar este archivo
+initDB();
 
 module.exports = pool;
