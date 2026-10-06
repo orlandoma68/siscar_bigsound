@@ -101,6 +101,16 @@ CREATE TABLE IF NOT EXISTS tblcontactos (
   PRIMARY KEY (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 `
+const initDB = async () => {
+  try {
+    // Intentamos ejecutar el script en Aiven
+    await pool.query(createTablesSQL);
+    console.log("✅ ¡Tablas verificadas o creadas con éxito en Aiven MySQL!");
+  } catch (error) {
+    console.error("❌ Error al crear las tablas en Aiven:", error);
+  }
+};
+
 // Se ejecuta automáticamente al importar este archivo
 initDB();
 
