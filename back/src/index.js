@@ -13,7 +13,6 @@ const routerUsuarios = require("./routes/routesUsuario")
 const routerPedidos = require("./routes/routesPedido")
 const routerContactos = require("./routes/routesContacto")
 
-//app.use(cors({ origin: true, credentials: true }))
 app.use(cors({
   origin: 'https://siscar-bigsound-pyj6.vercel.app', // Tu frontend en Vercel
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
