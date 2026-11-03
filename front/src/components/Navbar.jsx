@@ -5,11 +5,11 @@ import Modalinicio from './Modalinicio'
 import { CarritoContext } from '../context/CarritoContext'
 import { useAuth } from '../context/AuthContext'
 import carritoimg from "../imagen/bigsound.png"
-import { Home, Landmark, Search, Menu, X } from 'lucide-react'
+import { Home, Landmark, Search, Menu, X, Contact } from 'lucide-react'
 
 const navegacion = [
   { name: "Home", href: "/", icon: Home },
-  { name: "Contacto", href: "/contact", icon: Landmark },
+  { name: "Contacto", href: "/contact", icon: Contact },
   { name: "Nosotros", href: "/about", icon: Landmark }
 ]
 

@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import Modalcontenido from './Modalcontenido'
 import { Link } from 'react-router-dom'
 import { pedirProductos, pedirProductosCategoriaUnicos } from '../js/pedirProductos'
-import { MenuIcon } from 'lucide-react'
+import { LayoutGrid, MenuIcon } from 'lucide-react'
 
 const Modalinicio = () => {
   const [openModal, setOpenModal] = useState(false)
@@ -45,9 +45,9 @@ const Modalinicio = () => {
   }
 
   return (
-    <div className='modal-inicio mx-4' ref={contenedorRef}>
+    <div className='modal-inicio mx-0' ref={contenedorRef}>
       <button className="nav-link border-0 bg-transparent" onClick={handleToggleModal}>
-        <MenuIcon />
+        <LayoutGrid />
         Categoria
       </button>
       <Modalcontenido handleOpenModal={openModal} handleCloseModal={handleCloseModal}>
