@@ -2,8 +2,7 @@ import { useContext } from "react"
 import { Link } from 'react-router-dom'
 import { CarritoContext } from "../context/CarritoContext"
 import { Trash2, Minus, Plus, ShoppingCart } from 'lucide-react'
-
-const API_URL = import.meta.env.VITE_URL_SERVER;
+import { urlImagen } from '../js/imagenUrl'
 
 const Carrito = () => {
 
@@ -23,7 +22,7 @@ const Carrito = () => {
                     <img
                       className="img-fluid w-100 h-100"
                       style={{ objectFit: 'cover' }}
-                      src={`${API_URL}/uploads/${prod.imagen}`}
+                      src={urlImagen(prod.imagen)}
                       alt={prod.nombre}
                     />
                   </div>

@@ -30,6 +30,21 @@ app.use("/usuarios",routerUsuarios)
 app.use("/pedidos",routerPedidos)
 app.use("/contactos",routerContactos)
 
+app.use((error, req, res, next) => {
+    if (error.name === 'MulterError') {
+        const mensaje = error.code === 'LIMIT_FILE_SIZE'
+            ? 'La imagen supera el limite de 8 MB.'
+            : error.message
+        return res.status(400).json({ ok: false, message: mensaje })
+    }
+
+    if (error.status === 400) {
+        return res.status(400).json({ ok: false, message: error.message })
+    }
+
+    next(error)
+})
+
 const iniciarRoles = async () => {
     try {
         await pool.query(
@@ -140,6 +155,31 @@ const iniciarTablaAuditoria = async () => {
     }
 }
 
+const iniciarTablaProductos = async () => {
+    try {
+        const [columnas] = await pool.query(
+            `SELECT COLUMN_NAME, DATA_TYPE, CHARACTER_MAXIMUM_LENGTH
+             FROM information_schema.COLUMNS
+             WHERE TABLE_SCHEMA = DATABASE() AND TABLE_NAME = 'tblproductos'`
+        )
+
+        const columnaImagen = columnas.find((c) => c.COLUMN_NAME === 'imagen')
+        if (columnaImagen && columnaImagen.DATA_TYPE === 'varchar' && Number(columnaImagen.CHARACTER_MAXIMUM_LENGTH) < 500) {
+            await pool.query('ALTER TABLE tblproductos MODIFY imagen VARCHAR(500) NULL')
+            console.log("Columna 'imagen' ampliada a VARCHAR(500)")
+        }
+
+        if (!columnas.some((c) => c.COLUMN_NAME === 'imagen_public_id')) {
+            await pool.query('ALTER TABLE tblproductos ADD COLUMN imagen_public_id VARCHAR(255) DEFAULT NULL')
+            console.log("Columna 'imagen_public_id' agregada a tblproductos")
+        }
+
+        console.log("Tabla de productos verificada en la BD")
+    } catch (error) {
+        console.error("Error al verificar la tabla de productos:", error.message)
+    }
+}
+
 const crearTablaContactos = async () => {
     await pool.query(`
         CREATE TABLE IF NOT EXISTS tblcontactos (
@@ -182,7 +222,7 @@ const iniciarTablasContactos = async () => {
     }
 }
 
-iniciarRoles().then(iniciarTablasPedidos).then(iniciarTablasContactos).then(iniciarTablaAuditoria).then(() => {
+iniciarRoles().then(iniciarTablaProductos).then(iniciarTablasPedidos).then(iniciarTablasContactos).then(iniciarTablaAuditoria).then(() => {
     app.listen(port, () => {
         console.log(`Server iniciado en el puerto ${port}`)
     })

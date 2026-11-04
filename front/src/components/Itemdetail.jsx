@@ -5,8 +5,7 @@ import { CarritoContext } from '../context/CarritoContext'
 import { useAuth } from '../context/AuthContext'
 import { Link } from 'react-router-dom'
 import { ArrowLeft } from 'lucide-react'
-
-const API_URL = import.meta.env.VITE_URL_SERVER;
+import { urlImagen } from '../js/imagenUrl'
 
 const Itemdetail = ({ item }) => {
 
@@ -24,7 +23,7 @@ const Itemdetail = ({ item }) => {
           <div className='row g-4 justify-content-center'>
             <div className='col-12 col-md-5'>
               <div className='card overflow-hidden'>
-                <ZoomImagen src={`${API_URL}/uploads/${item.imagen}`} alt={item.nombre} />
+                <ZoomImagen src={urlImagen(item.imagen)} alt={item.nombre} />
               </div>
             </div>
             <div className='col-12 col-md-6'>

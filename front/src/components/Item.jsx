@@ -3,8 +3,7 @@ import { Link } from 'react-router-dom'
 import { CarritoContext } from '../context/CarritoContext'
 import { useAuth } from '../context/AuthContext'
 import { ShoppingCart, Eye } from 'lucide-react'
-
-const API_URL = import.meta.env.VITE_URL_SERVER;
+import { urlImagen } from '../js/imagenUrl'
 
 const Item = ({ producto }) => {
 
@@ -16,7 +15,7 @@ const Item = ({ producto }) => {
       <div className="card h-100" style={{ width: '100%' }}>
         <div style={{ position: 'relative', overflow: 'hidden' }}>
           <img
-            src={`${API_URL}/uploads/${producto.imagen}`}
+            src={urlImagen(producto.imagen)}
             alt={producto.nombre}
             className="card-img-top"
             style={{ height: '200px', objectFit: 'cover' }}

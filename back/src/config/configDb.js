@@ -28,7 +28,8 @@ CREATE TABLE IF NOT EXISTS tblproductos (
   nombre varchar(100) NOT NULL,
   descripcion text NOT NULL,
   categoria varchar(100) NOT NULL,
-  imagen varchar(255),
+  imagen varchar(500),
+  imagen_public_id varchar(255) DEFAULT NULL,
   cantidad int(11) NOT NULL,
   precio decimal(11,2) NOT NULL,
   PRIMARY KEY (id)

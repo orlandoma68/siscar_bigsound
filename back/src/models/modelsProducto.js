@@ -11,16 +11,16 @@ const obtenerProductos = async () => {
     }
 }
 
-const crearProducto = async ({ codigo, nombre, descripcion, categoria, imagen, cantidad, precio }) => {
-    const sql = "INSERT INTO tblproductos (codigo,nombre, descripcion, categoria,imagen, cantidad, precio) VALUES (?, ?, ?, ?, ?, ? ,?)"
-    const [result] = await pool.execute(sql, [codigo, nombre, descripcion, categoria, imagen, cantidad, precio])
+const crearProducto = async ({ codigo, nombre, descripcion, categoria, imagen, imagen_public_id, cantidad, precio }) => {
+    const sql = "INSERT INTO tblproductos (codigo,nombre, descripcion, categoria,imagen, imagen_public_id, cantidad, precio) VALUES (?, ?, ?, ?, ?, ?, ?, ?)"
+    const [result] = await pool.execute(sql, [codigo, nombre, descripcion, categoria, imagen, imagen_public_id, cantidad, precio])
     return result
 }
 
-const actualizarProducto = async ({codigo, nombre, descripcion, categoria, imagen, cantidad, precio, id }) => {
+const actualizarProducto = async ({codigo, nombre, descripcion, categoria, imagen, imagen_public_id, cantidad, precio, id }) => {
     
-    const sql = 'UPDATE tblproductos SET codigo = ?, nombre = ?, descripcion = ?, categoria = ?, imagen = ?, cantidad = ?, precio = ? WHERE id = ?';    
-    const [result] = await pool.execute(sql, [codigo, nombre, descripcion, categoria, imagen, cantidad, precio, id ]);
+    const sql = 'UPDATE tblproductos SET codigo = ?, nombre = ?, descripcion = ?, categoria = ?, imagen = ?, imagen_public_id = ?, cantidad = ?, precio = ? WHERE id = ?';
+    const [result] = await pool.execute(sql, [codigo, nombre, descripcion, categoria, imagen, imagen_public_id, cantidad, precio, id ]);
     return result[0]
 }
 /*
